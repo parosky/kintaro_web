@@ -14,15 +14,24 @@ function click_logout(){
 }
 
 function price_int_to_str(price_int){
+    if (price_int < 0) return "未計算";
     var price_str = "";
-    if (price_int > 100000000) {
-        price_str = Math.floor(price_int / 100000000) + "億";
-        price_str += ("0" + price_int % 100000000 / 10000).slice(-4) + "万円";
-    }else if (price_int < 0){
-        price_str = "未計算";
-    }else{
-        price_str = price_int % 100000000 / 10000 + "万円";
+    var strs = ["万", "億", "兆", "京", "垓"];
+    for (var i=strs.length-1;i>=0;i--){
+        var base = Math.pow(10000, (i+1));
+        console.log(base);
+        if (price_int >= base){
+            var p = Math.floor(price_int / base);
+            console.log(p,strs[i]);
+            if (price_str.length ==0){
+                price_str = p + strs[i]
+            }else{
+                price_str += ("000" + p).slice(-4) + strs[i];
+            }
+            price_int -= base*p;
+        }
     }
+    price_str += "円";
     return price_str;
 }
 
