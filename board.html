@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>金太郎電鉄（仮称）</title>
+    <title>掲示板 - 金太郎電鉄（仮称）</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -9,7 +9,7 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./js/common.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/board.js"></script>
   </head>
   <body>
 
@@ -25,14 +25,14 @@
           </a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="./index.html">ホーム</a></li>
+              <li><a href="./index.html">ホーム</a></li>
               <li><a href="./station.html">最寄駅</a></li>
               <li><a href="./places.html">所有物件</a></li>
               <li><a href="./ranking.html">ランキング</a></li>
-              <li class="dropdown">
+              <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">交流<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="board.html">掲示板</a></li>
+                  <li class="active"><a href="board.html">掲示板</a></li>
                   <li><a href="message.html">メッセージ</a></li>
                 </ul>
               </li>
@@ -54,12 +54,21 @@
     <div class="container-fluid">
       <div class="row-fluid">
 
+        <h1 class="text-center">一行掲示板</h1>
 
-        <h1>金太郎電鉄（仮称）</h1>
-        <p>位置情報を活用したスマホ向けゲーム、開発中</p>
-        <h2></h2>
-        <h3></h3>
+        <div class="input-append span8 offset2" id="post-form">
+          <form id="post-form">
+            <input class="input-block-level" id="" type="text">
+            <button class="btn" type="submit">投稿</button>
+          </form>
+        </div>  
 
+    
+        <table class="table table-striped" id="board-table" style="display:none">
+          <tbody>
+
+          </tbody>
+        </table>
 
       </div>
     </div>

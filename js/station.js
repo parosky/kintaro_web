@@ -6,25 +6,26 @@ $(function(){
         var pindex = Math.floor($(event.target).parent().parent().attr('data-place-index'));
         var place = station.places[pindex];
         if (place.price<0){
-            show_ok_dialog("エラー", "価格未計算のため購入できません。");
+            show_dialog("エラー", "価格未計算のため購入できません。", "OK");
         }else{
-            $('#modal-buy-title').text(place.name);
+            title = place.name;
             var price = place.price;
             if (place.owner_id == -1) {
-                $('#modal-buy-message').text(price_int_to_str(price)+"で購入が可能です。");
+                message = price_int_to_str(price)+"で購入が可能です。";
             }else{
                 price *= 5;
-                $('#modal-buy-message').text(place.owner_name+"さんから"+price_int_to_str(price)+"で購入できます。");
+                message = place.owner_name+"さんから"+price_int_to_str(price)+"で購入できます。";
             }
-            $('#modal-buy-button-buy').click(function(pid){return function(){click_buy_button(pid)}}(place.id));
-            $('#modal-buy-place').modal('show');
+            callbacks = [function(pid){return function(){click_buy_button(pid)}}(place.id), null];
+            buttons = ["購入", "キャンセル"];
+            show_dialog(title, message, buttons, 0, callbacks);
         }
     }
 
     function click_buy_button(pid){
         /* buy a place if "buy" button is clicked */
         $.getJSON(ajax_url("buy"), {pid: pid}, function(data){
-            show_ok_dialog("購入完了", data.place.name+'を'+price_int_to_str(data.price)+"で購入しました。", function(){location.href="";});
+            show_dialog("購入完了", data.place.name+'を'+price_int_to_str(data.price)+"で購入しました。", "OK", 0, function(){location.href="";});
         });
     }
 
@@ -61,13 +62,13 @@ $(function(){
             var lng = 132.121582;
             lat += Math.random()*(35.657296-34.795762);
             lng += Math.random()*(140.83374-132.121582);
-            show_ok_dialog("エラー", "位置情報を取得できません: "+data.message + "<br>代わりに ("+lat+", "+lng+") を使用します");
+            show_dialog("エラー", "位置情報を取得できません: "+data.message + "<br>代わりに ("+lat+", "+lng+") を使用します", "OK", 0);
             show_places(lat, lng);
         });
     }else{
         var lat = 35.630512;
         var lng = 139.778924;
-        show_ok_dialog("エラー", "位置情報を取得できません: "+data.message + "<br>代わりに ("+lat+", "+lng+") を使用します");
+        show_dialog("エラー", "位置情報を取得できません: "+data.message + "<br>代わりに ("+lat+", "+lng+") を使用します", "OK", 0);
         show_places(lat, lng);
     }
 });
