@@ -3,6 +3,7 @@ login_key = login_key_default;
 
 $(function(){
     $("#menu-logout").click(click_logout);
+
 });
 
 function click_logout(){
@@ -19,10 +20,8 @@ function price_int_to_str(price_int){
     var strs = ["万", "億", "兆", "京", "垓"];
     for (var i=strs.length-1;i>=0;i--){
         var base = Math.pow(10000, (i+1));
-        console.log(base);
         if (price_int >= base){
             var p = Math.floor(price_int / base);
-            console.log(p,strs[i]);
             if (price_str.length ==0){
                 price_str = p + strs[i]
             }else{
